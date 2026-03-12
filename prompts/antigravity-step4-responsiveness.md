@@ -1,3 +1,4 @@
+Read @prompts/README.md first and follow all rules in it before doing anything.
 # Antigravity Prompt — Step 4: Responsiveness & Browser Verification
 > **When to use:** After Step 3 (integration) is complete
 > **Tool:** Antigravity (agentic mode with browser)
