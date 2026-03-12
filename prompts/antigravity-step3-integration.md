@@ -1,7 +1,7 @@
-Read @prompts/README.md first and follow all rules in it before doing anything.
 # Antigravity Prompt — Step 3: Page Integration
-> **When to use:** After Gemini generates services.html or projects.html
-> **Tool:** Antigravity (agentic mode)
+> **Model:** Claude Sonnet 4.5 (in Antigravity — set model to Claude Sonnet 4.5 before running)
+> **Mode:** Agent (not Planning — let it run autonomously)
+> **When to use:** After Gemini Flash generates services.html or projects.html and you've dropped the file into the workspace
 > **What it does:** Integrates the Gemini output into the site, ensures consistency with existing pages, and visually verifies in the browser.
 
 ---
@@ -120,8 +120,11 @@ When complete, output a short summary:
 ---
 
 ## 📥 How to use this in Antigravity
-1. Open your project folder in Antigravity
-2. Paste the prompt above into the agent task input
-3. Replace `[target].html` and `[services.html / projects.html]` with the actual filename
-4. Let the agent run — it will edit files, open the browser, and verify autonomously
-5. Review the output report before moving to Step 4 (responsiveness)
+1. Make sure Gemini Flash has already generated the file and you've saved it to the workspace
+2. Open Antigravity → Agent Manager → start a new conversation
+3. Set model to **Claude Sonnet 4.5** (not Gemini)
+4. Set mode to **Agent** (not Planning)
+5. Type `Read @prompts/README.md first and follow all rules in it before doing anything.` at the top
+6. Paste the prompt below, replacing `[target].html` with the actual filename
+7. Let it run — it will edit files, open the browser, and verify autonomously
+8. Paste Claude's output report back into claude.ai for Step 5 review
