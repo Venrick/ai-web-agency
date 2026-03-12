@@ -61,7 +61,7 @@ STEP 5 — Claude (claude.ai)
 | 4 — QA | Antigravity | Claude Sonnet 4.5 | Agent |
 | 5 — Review | claude.ai (this chat) | Claude Sonnet 4.6 | Conversation |
 
-> ⚠️ Always use **Agent mode** in Antigravity — not Planning mode.
+> ⚠️ Always use **Fast mode** in Antigravity — not Planning mode.
 > Planning mode asks permission before every action and breaks the autonomous flow.
 
 ---
