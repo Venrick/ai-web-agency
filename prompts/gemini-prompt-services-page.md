@@ -1,5 +1,7 @@
 # Gemini Prompt — services.html
-> Copy everything inside the code block and paste it directly into Gemini.
+> **Model:** Gemini Flash (in Antigravity — set model to Gemini Flash before running)
+> **Mode:** Agent (not Planning)
+> Copy everything inside the code block and paste it into Antigravity's chat input.
 
 ---
 
