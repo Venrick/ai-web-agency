@@ -1,7 +1,7 @@
-Read @prompts/README.md first and follow all rules in it before doing anything.
 # Antigravity Prompt — Step 4: Responsiveness & Browser Verification
+> **Model:** Claude Sonnet 4.5 (in Antigravity — keep the same model from Step 3)
+> **Mode:** Agent (not Planning — let it run autonomously)
 > **When to use:** After Step 3 (integration) is complete
-> **Tool:** Antigravity (agentic mode with browser)
 > **What it does:** Tests the page at every breakpoint in the browser, fixes every responsive issue found, and re-verifies before finishing.
 
 ---
@@ -147,8 +147,9 @@ When complete, provide:
 
 ## 📥 How to use this in Antigravity
 1. Make sure Step 3 (integration) is already complete
-2. Open your project folder in Antigravity
-3. Paste the prompt above into the agent task input
-4. Replace `[target].html` with the actual filename
-5. The agent will resize the browser, find issues, fix code, and re-verify automatically
-6. Review the output report — anything flagged for "Claude review" goes to Step 5
+2. In Antigravity, start a new conversation (or continue the Step 3 conversation)
+3. Confirm model is **Claude Sonnet 4.5** and mode is **Agent**
+4. Type `Read @prompts/README.md first and follow all rules in it before doing anything.` at the top
+5. Paste the prompt below, replacing `[target].html` with the actual filename
+6. The agent will resize the browser, find issues, fix code, and re-verify automatically
+7. Paste Claude's output report back into claude.ai — anything flagged goes to Step 5
