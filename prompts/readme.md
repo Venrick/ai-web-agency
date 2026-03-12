@@ -1,89 +1,28 @@
-# 📁 AI Prompt Library — EURL ETB Achouri Toufik Website
-> Structured, reusable prompts for the AI-supervised development workflow.
-> Every AI tool in the pipeline (Claude, Gemini, Antigravity) uses this folder as its reference.
+# 📁 Prompt Library — EURL ETB Achouri Toufik Website
+> This folder contains all AI prompts for the development pipeline.
+> For the step-by-step workflow, see `workflow/blueprint.md`.
+> This file is the **tech stack reference** — every AI tool reads this before acting.
 
 ---
 
 ## 🗂️ Prompt Index
 
-| # | File | Step | Model | Task |
-|---|------|------|-------|------|
-| 01 | `01-component-generation.md`         | Planning  | Claude (this chat)        | Generate new HTML/CSS sections from scratch |
-| 02 | `02-bug-fixing.md`                   | Any       | Claude (this chat)        | Diagnose and fix layout or styling bugs |
-| 03 | `03-layout-improvement.md`           | Review    | Claude (this chat)        | Improve UX and visual design of a section |
-| 04 | `04-responsive-fixing.md`            | Any       | Claude (this chat)        | Fix mobile/tablet responsiveness |
-| 05 | `gemini-prompt-services-page.md`     | Generate  | Gemini Flash (Antigravity)| Build the full services.html page |
-| 06 | `gemini-prompt-projects-page.md`     | Generate  | Gemini Flash (Antigravity)| Build the full projects.html page |
-| 07 | `antigravity-step3-integration.md`   | Integrate | Claude Sonnet (Antigravity)| Integrate Gemini output into the site |
-| 08 | `antigravity-step4-responsiveness.md`| QA        | Claude Sonnet (Antigravity)| Test and fix responsiveness at all breakpoints |
+| File | Step | Model | Task |
+|------|------|-------|------|
+| `component-gen.md`                    | Planning  | Claude (claude.ai)              | Generate new HTML/CSS sections from scratch |
+| `bug-fix.md`                          | Any       | Claude (claude.ai)              | Diagnose and fix layout or styling bugs |
+| `layout-improvement.md`               | Review    | Claude (claude.ai)              | Improve UX and visual design of a section |
+| `responsive-fixing.md`                | Any       | Claude (claude.ai)              | Fix mobile/tablet responsiveness |
+| `gemini-prompt-services-page.md`      | Generate  | Gemini Flash (Antigravity)      | Build the full services.html page |
+| `gemini-prompt-projects-page.md`      | Generate  | Gemini Flash (Antigravity)      | Build the full projects.html page |
+| `antigravity-step3-integration.md`    | Integrate | Claude Sonnet 4.5 (Antigravity) | Integrate Gemini output into the site |
+| `antigravity-step4-responsiveness.md` | QA        | Claude Sonnet 4.5 (Antigravity) | Test and fix responsiveness at all breakpoints |
 
 ---
 
-## ⚙️ Development Workflow
+## 🏗️ Tech Stack
 
-```
-STEP 1 — Claude (this chat)
-  └─► Plans the page, writes or selects the Gemini prompt
-      Uses: 01-component-generation.md or gemini-prompt-[page].md
-
-        ▼
-
-STEP 2 — Antigravity / Gemini Flash
-  └─► Open Antigravity → set model to Gemini Flash
-      Paste prompt from gemini-prompt-[page].md → generates full HTML page
-      ⚠️  Agent-assisted mode, not Planning mode
-      ⚠️  Do NOT use Gemini Pro (High) — capacity issues, overkill for generation
-
-        ▼  [MANUAL HANDOFF]
-           Save Gemini's output as services.html or projects.html
-           Drop the file into the workspace folder
-
-        ▼
-
-STEP 3 — Antigravity / Claude Sonnet 4.5
-  └─► Switch model to Claude Sonnet 4.5 in Antigravity
-      Paste prompt from antigravity-step3-integration.md
-      Claude reads @prompts/README.md, audits the file, integrates
-      nav/footer, fixes links, opens browser and verifies
-      ⚠️  Agent mode (not Planning) — let it run autonomously
-
-        ▼
-
-STEP 4 — Antigravity / Claude Sonnet 4.5
-  └─► Keep Claude Sonnet 4.5 in Antigravity
-      Paste prompt from antigravity-step4-responsiveness.md
-      Tests 5 breakpoints in browser, fixes responsive issues, re-verifies
-      Outputs a report — flag anything needing design decisions
-
-        ▼  [MANUAL HANDOFF]
-           Paste Claude's output report back into this chat
-
-        ▼
-
-STEP 5 — Claude (this chat)
-  └─► Reviews UX and layout from the report
-      Uses: 03-layout-improvement.md or 02-bug-fixing.md
-      Writes targeted fix instructions → back to Antigravity if needed
-```
-
-### Model Assignment Summary
-
-| Model | Where | Used for |
-|-------|-------|---------|
-| Claude (claude.ai) | This chat | Planning, prompt writing, UX review |
-| Gemini Flash | Antigravity Agent | Fast HTML/CSS generation — Steps 2 |
-| Claude Sonnet 4.5 | Antigravity Agent | Careful integration + QA — Steps 3 & 4 |
-
-> ⚠️ **Multi-agent automation note:** Antigravity does not currently support agents
-> supervising other agents automatically. The two handoff points marked [MANUAL HANDOFF]
-> above require you to copy the output and start the next agent conversation yourself.
-> This takes ~30 seconds per handoff and is the only manual step in the pipeline.
-
----
-
-## 🏗️ Full Tech Stack
-
-> **This is the source of truth for all AI tools working on this project.**
+> **Source of truth for all AI tools working on this project.**
 > Every prompt must stay within this stack — no new libraries, no npm, no bundler.
 
 ### Core
@@ -94,13 +33,13 @@ STEP 5 — Claude (this chat)
 | JavaScript | Vanilla JS (ES6+) | No framework, no build step |
 | Execution | Static files | Opened directly in browser — no server needed |
 
-### CSS Framework
+### CSS
 | Tool | How it's loaded | Purpose |
 |------|----------------|---------|
 | Tailwind CSS | CDN — `https://cdn.tailwindcss.com` | Utility classes for layout, spacing, colors, responsive |
-| Custom `<style>` blocks | Inline in each HTML file | Animations, pseudo-elements, blueprint grid texture, custom scrollbar — anything Tailwind can't handle cleanly |
+| Custom `<style>` blocks | Inline in each HTML file | Animations, pseudo-elements, blueprint grid, custom scrollbar |
 
-**Tailwind config block** (paste in every page's `<head>` after the CDN script):
+**Tailwind config block** — paste in every `<head>` after the CDN script:
 ```html
 <script>
   tailwind.config = {
@@ -126,31 +65,27 @@ STEP 5 — Claude (this chat)
 ```
 
 ### Animation
-| Tool | Version | CDN URL | Used for |
-|------|---------|---------|---------|
-| GSAP | 3.12.2 | `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js` | Hero entrance, fade/slide-in scroll animations, count-up stats |
-| ScrollTrigger | 3.12.2 | `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js` | Trigger animations on scroll |
+| Tool | Version | CDN URL |
+|------|---------|---------|
+| GSAP | 3.12.2 | `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js` |
+| ScrollTrigger | 3.12.2 | `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js` |
 
-All GSAP code lives inside `window.addEventListener('load', () => { ... })`.
-`gsap.registerPlugin(ScrollTrigger)` is called at the top of every load handler.
+- All GSAP code goes inside `window.addEventListener('load', () => { ... })`
+- Always call `gsap.registerPlugin(ScrollTrigger)` at the top of the load handler
 
 ### Typography
 | Font | Weights | Used for |
 |------|---------|---------|
-| Barlow Condensed | 700, 800 | All headings, eyebrows, buttons, labels |
+| Barlow Condensed | 700, 800 | Headings, eyebrows, buttons, labels |
 | Barlow | 400, 500, 600 | Navigation, UI elements |
-| Lato | 300, 400, 700 | Body text, paragraphs, descriptions |
+| Lato | 300, 400, 700 | Body text, paragraphs |
 
-Google Fonts link (paste in every `<head>`):
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
 ```
 
 ### Icons
 **Inline SVGs only — no icon library.**
-All icons are hand-written `<svg>` elements directly in the HTML.
-
-Standard icon attributes:
 ```html
 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#c19f5d"
      stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -158,48 +93,43 @@ Standard icon attributes:
 </svg>
 ```
 - ViewBox: always `0 0 24 24`
-- Fill: `none`
-- Stroke: `#c19f5d` (gold) for decorative icons, `currentColor` for interactive ones
-- Stroke-width: `1.8` (nav/UI: `2` or `2.2`)
-- Stroke-linecap + linejoin: `round`
+- Stroke: `#c19f5d` for decorative, `currentColor` for interactive
+- Stroke-width: `1.8` standard, `2` or `2.2` for nav/UI
 
-### Logo Files
+### Logo
 | File | Used where |
 |------|-----------|
-| `Logo_Horizontal_Light.svg` | Navbar (main bar) and footer |
-| `Logo_Light.svg` | Compact or square contexts |
+| `Logo_Horizontal_Dark.svg` | Navbar + footer |
+| `Logo_Dark.svg` | Compact/square contexts |
 
 ```html
-<!-- Navbar -->
-<img src="Logo_Horizontal_Light.svg" alt="ETB Achouri Toufik" style="height:42px;">
-
-<!-- Footer -->
-<img src="Logo_Horizontal_Light.svg" alt="ETB Achouri Toufik" style="height:44px; margin-bottom:4px;">
+<img src="Logo_Horizontal_Dark.svg" alt="ETB Achouri Toufik" style="height:42px;">         <!-- navbar -->
+<img src="Logo_Horizontal_Dark.svg" alt="ETB Achouri Toufik" style="height:44px; margin-bottom:4px;">  <!-- footer -->
 ```
 
-> ⚠️ **For Gemini prompts only:** use a text fallback since Gemini can't access local files:
-> `<span class="font-condensed text-[22px] font-extrabold text-white tracking-[1px]">ETB <span class="text-gold">Achouri</span></span>`
-> Antigravity replaces this with the real SVG during Step 3 (integration).
+> ⚠️ Gemini prompts use a text fallback (Gemini can't access local files):
+> `<span class="font-condensed text-[22px] font-extrabold text-white">ETB <span class="text-gold">Achouri</span></span>`
+> Antigravity Step 3 must replace the fallback with the real SVG.
 
 ### Media
-| Type | Source | Status |
-|------|--------|--------|
-| Hero background video | Pexels video URLs | Placeholders — replace with real footage |
-| Page photos (about, projects) | Unsplash URLs | Placeholders — replace with real photos |
-| Hero video crossfade | JS + GSAP opacity transition | `vid1` ends → `vid2` fades in, loops |
+| Type | Source | Notes |
+|------|--------|-------|
+| Hero video | Pexels URLs | Placeholders — replace with real footage |
+| Photos | Unsplash URLs | Placeholders — replace with real photos |
+| Video crossfade | GSAP opacity transition | vid1 ends → vid2 fades in |
 
 ### Maps
-| Page | Implementation | Notes |
-|------|---------------|-------|
-| `contact.html` | Google Maps embed `<iframe>` | Standard embed, no API key needed |
-| `projects.html` | Custom CSS/JS interactive map | No external library — pure HTML/CSS/JS pins + info panel |
+| Page | Implementation |
+|------|---------------|
+| `contact.html` | Google Maps `<iframe>` embed |
+| `projects.html` | Custom CSS/JS map — no external library |
 
 ### Browser APIs
-| API | Used for | Notes |
-|-----|---------|-------|
-| `IntersectionObserver` | Scroll-spy navbar highlighting | Watches `section[id]` elements |
+| API | Used for |
+|-----|---------|
+| `IntersectionObserver` | Scroll-spy navbar highlighting |
 
-> ⚠️ `localStorage` was previously used for theme persistence — it has been **removed**. Do not re-introduce it.
+> ⚠️ `localStorage` has been removed — do not re-add it.
 
 ---
 
@@ -219,28 +149,28 @@ Standard icon attributes:
 
 ```
 Colors
-  navy:       #1e243c   Primary dark — backgrounds, cards, navbar
-  navy-dark:  rgb(15,19,35)  Deeper navy — footer, hero overlay
-  navy-card:  #1a2036   Card backgrounds inside dark sections
-  gold:       #c19f5d   Accent — borders, icons, highlights, CTAs
-  light-bg:   #f4f4f2   Light section backgrounds
-  muted:      #5a5f72   Body text on light backgrounds
+  navy:       #1e243c        — backgrounds, cards, navbar
+  navy-dark:  rgb(15,19,35)  — footer, hero overlay
+  navy-card:  #1a2036        — cards inside dark sections
+  gold:       #c19f5d        — accent, borders, icons, CTAs
+  light-bg:   #f4f4f2        — light section backgrounds
+  muted:      #5a5f72        — body text on light backgrounds
 
-Typography
-  Heading XL: clamp(40px, 6vw, 64px)  — page heroes
-  Heading LG: clamp(32px, 5vw, 52px)  — section headings
-  Heading MD: clamp(28px, 4vw, 42px)  — sub-section headings
-  Eyebrow:    11px, Barlow Condensed, tracking-[3px], uppercase, text-gold
-  Body:       13.5px–15px, Lato, leading-[1.7]
+Typography scale
+  Heading XL:  clamp(40px, 6vw, 64px)   page heroes
+  Heading LG:  clamp(32px, 5vw, 52px)   section headings
+  Heading MD:  clamp(28px, 4vw, 42px)   sub-sections
+  Eyebrow:     11px, Barlow Condensed, tracking-[3px], uppercase, gold
+  Body:        13.5px–15px, Lato, leading-[1.7]
 
 Spacing
   Section:    py-24 px-12
   Max width:  max-w-[1200px] mx-auto
 
 Borders
-  Subtle gold:  border border-[rgba(193,159,93,0.2)]
-  Full gold:    border border-gold
-  Top accent:   border-t-[3px] border-t-gold  ← used on navbar, cards, CTAs
+  Subtle:     border border-[rgba(193,159,93,0.2)]
+  Full gold:  border border-gold
+  Top accent: border-t-[3px] border-t-gold
 
 Shadows
   Card:   shadow-[0_2px_16px_rgba(30,36,60,0.06)]
@@ -251,9 +181,9 @@ Shadows
 
 ## 📐 Breakpoints
 
-| Tailwind prefix | Width | Target |
-|----------------|-------|--------|
-| (default) | 0px+ | Mobile base |
+| Prefix | Width | Target |
+|--------|-------|--------|
+| (default) | 0px+ | Mobile |
 | `sm:` | 640px+ | Large phones |
 | `md:` | 768px+ | Tablets |
 | `lg:` | 1024px+ | Laptops |
@@ -287,26 +217,26 @@ Shadows
 </h2>
 ```
 
-### Primary CTA button (gold fill)
+### Primary CTA button
 ```html
 <a href="contact.html" class="bg-gold text-navy font-condensed text-[12px] font-bold tracking-[2px] uppercase px-8 py-4 hover:opacity-90 transition-opacity no-underline">
-  Button Label &rarr;
+  Label &rarr;
 </a>
 ```
 
-### Outlined CTA button (dark background)
+### Outlined CTA button (dark bg)
 ```html
 <a href="#" class="border border-[rgba(255,255,255,0.4)] text-white font-condensed text-[12px] font-bold tracking-[2px] uppercase px-8 py-4 hover:border-gold hover:text-gold transition-all no-underline">
-  Button Label
+  Label
 </a>
 ```
 
-### Service / feature card
+### Service card
 ```html
 <div class="service-card bg-white border border-[rgba(30,36,60,0.07)] rounded-[3px] p-9 flex flex-col shadow-[0_2px_16px_rgba(30,36,60,0.06)]">
   <div class="w-16 h-16 bg-navy rounded-[4px] flex items-center justify-center mb-7 flex-shrink-0">
     <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#c19f5d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <!-- path here -->
+      <!-- path -->
     </svg>
   </div>
   <h3 class="font-barlow text-[17px] font-semibold text-navy mb-3">Title</h3>
@@ -320,7 +250,7 @@ Shadows
 </div>
 ```
 
-### Blueprint grid texture (dark sections)
+### Blueprint grid texture
 ```css
 .blueprint-subtle {
   background-image:
@@ -329,19 +259,21 @@ Shadows
   background-size: 48px 48px;
 }
 ```
-Usage: `<div class="blueprint-subtle absolute inset-0 pointer-events-none"></div>` inside any `relative overflow-hidden` section.
+```html
+<div class="blueprint-subtle absolute inset-0 pointer-events-none"></div>
+```
 
 ---
 
 ## ⚠️ Hard Rules for All AI Tools
 
-1. **No npm, no bundler, no backend** — static files only, opened directly in a browser
-2. **No new CSS frameworks** — Tailwind CDN + plain CSS `<style>` blocks only
-3. **No icon libraries** — inline SVGs only, following the attribute spec above
-4. **No `localStorage`** — intentionally removed, do not re-add it
-5. **No map libraries** — Google Maps iframe on `contact.html`, custom CSS/JS on `projects.html`
-6. **Never switch fonts** — always use the Google Fonts link with Barlow Condensed + Barlow + Lato
-7. **Always include the Tailwind config block** — never rely on default Tailwind colors
+1. **No npm, no bundler, no backend** — static files only
+2. **No new CSS frameworks** — Tailwind CDN + `<style>` blocks only
+3. **No icon libraries** — inline SVGs only
+4. **No `localStorage`** — intentionally removed, do not re-add
+5. **No map libraries** — Google Maps iframe on contact.html, custom JS on projects.html
+6. **Never switch fonts** — Barlow Condensed + Barlow + Lato only
+7. **Always include the Tailwind config block** — never use default Tailwind colors
 8. **All JS inside `window.addEventListener('load', () => { ... })`**
 9. **GSAP + ScrollTrigger from cdnjs at version 3.12.2 exactly**
-10. **Logo = SVG files** — text fallback is for Gemini prompts only; Antigravity must replace it with the real SVG
+10. **Logo = SVG files** — text fallback for Gemini prompts only
