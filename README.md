@@ -129,15 +129,15 @@ Standard icon attributes:
 ### Logo Files
 | File | Used where |
 |------|-----------|
-| `Logo_Horizontal_Light.svg` | Navbar (main bar) and footer |
-| `Logo_Light.svg` | Compact or square contexts |
+| `Logo_Horizontal_Dark.svg` | Navbar (main bar) and footer |
+| `Logo_Dark.svg` | Compact or square contexts |
 
 ```html
 <!-- Navbar -->
-<img src="Logo_Horizontal_Light.svg" alt="ETB Achouri Toufik" style="height:42px;">
+<img src="Logo_Horizontal_Dark.svg" alt="ETB Achouri Toufik" style="height:42px;">
 
 <!-- Footer -->
-<img src="Logo_Horizontal_Light.svg" alt="ETB Achouri Toufik" style="height:44px; margin-bottom:4px;">
+<img src="Logo_Horizontal_Dark.svg" alt="ETB Achouri Toufik" style="height:44px; margin-bottom:4px;">
 ```
 
 > ⚠️ **For Gemini prompts only:** use a text fallback since Gemini can't access local files:
