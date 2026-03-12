@@ -1,3 +1,4 @@
+Read @prompts/README.md first and follow all rules in it before doing anything.
 # Antigravity Prompt — Step 3: Page Integration
 > **When to use:** After Gemini generates services.html or projects.html
 > **Tool:** Antigravity (agentic mode)
