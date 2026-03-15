@@ -55,7 +55,7 @@ STEP 5 — Claude (claude.ai)
 
 | Step | Tool | Model | Mode |
 |------|------|-------|------|
-| 1 — Plan | claude.ai (this chat) | Claude Sonnet 4.6 | Conversation |
+| 1 — Plan | claude.ai | Claude Sonnet 4.6 | Conversation |
 | 2 — Generate | Antigravity | Gemini Flash | Agent |
 | 3 — Integrate | Antigravity | Claude Sonnet 4.5 | Agent |
 | 4 — QA | Antigravity | Claude Sonnet 4.5 | Agent |
