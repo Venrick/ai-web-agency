@@ -143,7 +143,7 @@ Do not mark the task complete until all 10 pass.
 □ 1. No npm, bundler, or backend references in the file
 □ 2. No CSS framework other than Tailwind CDN
 □ 3. No icon library imports — all icons are inline SVGs
-□ 4. No localStorage in the JS
+□ 4. No localStorage in the JSa
 □ 5. No map libraries (projects page: map is pure CSS/JS)
 □ 6. Only Barlow Condensed, Barlow, and Lato fonts used
 □ 7. Tailwind config block present with all 6 custom colors
