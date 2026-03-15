@@ -1,6 +1,6 @@
 # EURL ETB Achouri Toufik — Company Website
 
-Official website for EURL ETB Achouri Toufik, a construction company based in Algeria.
+Official website for EURL ETB Achouri Toufik, a construction company based in Blida, Algeria.
 Built and maintained using an AI-supervised development workflow.
 
 ---
