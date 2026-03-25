@@ -140,8 +140,8 @@
 | `index.html` | ✅ Complete | Hero video, about, stats, services preview, projects preview, contact form |
 | `about.html` | ✅ Complete | Company story, team, values |
 | `contact.html` | ✅ Complete | Contact form + Google Maps embed |
-| `services.html` | 🔲 To build | Use `gemini-prompt-services-page.md` |
-| `projects.html` | 🔲 To build | Use `gemini-prompt-projects-page.md` |
+| `services.html` | ✅ Complete | Use `gemini-prompt-services-page.md` |
+| `projects.html` | ✅ Complete | Use `gemini-prompt-projects-page.md` |
 
 ---
 
