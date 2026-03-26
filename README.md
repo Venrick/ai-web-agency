@@ -13,7 +13,7 @@ Built and maintained using an AI-supervised development workflow.
 | `about.html` | ✅ Complete |
 | `contact.html` | ✅ Complete |
 | `services.html` | ✅ Complete |
-| `projects.html` | 🔲 In progress |
+| `projects.html` | ✅ Complete |
 
 ---
 
