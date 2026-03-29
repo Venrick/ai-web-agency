@@ -63,3 +63,5 @@ When finishing a task, ALWAYS output a short report:
 - Changes made (and why).
 - Browser/Terminal verification status.
 - Anything flagged for human review.
+
+After I accept your changes, remind me to commit them or provide the exact git command for me to run in the terminal.
