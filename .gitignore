@@ -1,0 +1,11 @@
+# Delete the directory, create a proper file
+rm -rf .gitignore
+cat > .gitignore << 'EOF'
+.playwright-mcp/
+.cursor/debug-*.log
+*.log
+map-section-verify.png
+EOF
+git add .gitignore
+git commit -m "Fix .gitignore (was accidentally created as directory)"
+git push
