@@ -46,7 +46,7 @@ tailwind.config = {
 3. NO icon library imports.
 4. NO localStorage.
 5. NO external map libraries.
-6. Logo MUST use `Logo_Horizontal_Dark.svg` (remove any text fallbacks like `<span>ETB...</span>`).
+6. Logo MUST use `site-logo-dark.png` (remove any text fallbacks like `<span>ETB...</span>`).
 7. Active nav link MUST have `class="active"`.
 
 # Integration Rules
