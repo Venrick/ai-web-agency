@@ -11,6 +11,12 @@ Type: Multi-page static HTML/CSS/JS (No framework, no bundler, no backend)
 - Icons: Inline SVGs only (viewBox="0 0 24 24"). NO icon libraries (Font Awesome, Heroicons, etc.).
 - Media: Google Maps `<iframe>` for contact. Pure CSS/JS for projects map.
 
+# Performance & Context Rules
+- NEVER create debug log files or temporary test files.
+- NEVER spin up local servers (e.g., npx serve) to view static files. Use Playwright to open local files directly using the file:// protocol.
+- Keep output reports strictly to the 3-point format requested. Do not add XML tags like <reproduction_steps> unless explicitly asked.
+- When tweaking CSS positions (pins, margins, padding), make targeted edits—do not refactor the surrounding code.
+
 # Tailwind Config (MUST be in every page's <head>)
 <script>
 tailwind.config = {
