@@ -1,0 +1,59 @@
+# Project Identity
+Project: EURL ETB Achouri Toufik Website
+Type: Multi-page static HTML/CSS/JS (No framework, no bundler, no backend)
+
+# Tech Stack (Source of Truth)
+- HTML: HTML5 semantic tags only.
+- CSS: Tailwind CSS via CDN + custom `<style>` blocks per page. NO external CSS frameworks.
+- JS: Vanilla ES6+. ALL JS must be inside `window.addEventListener('load', () => { ... })`.
+- Animation: GSAP 3.12.2 + ScrollTrigger (exact version from cdnjs).
+- Fonts: Barlow Condensed (700,800), Barlow (400,500,600), Lato (300,400,700).
+- Icons: Inline SVGs only (viewBox="0 0 24 24"). NO icon libraries (Font Awesome, Heroicons, etc.).
+- Media: Google Maps `<iframe>` for contact. Pure CSS/JS for projects map.
+
+# Tailwind Config (MUST be in every page's <head>)
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: '#1e243c',
+        'navy-dark': 'rgb(15,19,35)',
+        'navy-card': '#1a2036',
+        gold: '#c19f5d',
+        'light-bg': '#f4f4f2',
+        muted: '#5a5f72',
+      },
+      fontFamily: {
+        sans: ['Lato', 'sans-serif'],
+        barlow: ['Barlow', 'sans-serif'],
+        condensed: ['Barlow Condensed', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+
+# Hard Constraints (Non-Negotiable)
+1. NO npm, node_modules, bundler, or backend.
+2. NO CSS frameworks other than Tailwind CDN.
+3. NO icon library imports.
+4. NO localStorage.
+5. NO external map libraries.
+6. Logo MUST use `Logo_Horizontal_Dark.svg` (remove any text fallbacks like `<span>ETB...</span>`).
+7. Active nav link MUST have `class="active"`.
+
+# Integration Rules
+- `index.html` is the absolute source of truth for Navbar and Footer.
+- If a newly generated page has a different navbar/footer, copy the exact HTML from `index.html` and paste it into the new file.
+- Before integrating, audit: Navbar structure, Footer structure, Tailwind config block, Google Fonts link, GSAP/ScrollTrigger CDNs, and internal `.html` links.
+
+# Responsiveness Rules
+- Always verify at: 375px, 430px, 768px, 1024px, 1280px.
+- Look for: overflow issues, broken flex/grid stacks, incorrect font sizing, hidden elements.
+
+# Task Completion Format
+When finishing a task, ALWAYS output a short report:
+- Changes made (and why).
+- Browser/Terminal verification status.
+- Anything flagged for human review.
