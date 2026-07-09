@@ -1,0 +1,193 @@
+# Git Workflow
+**AI Web Dev Agency — Internal Reference**
+Last updated: July 2026
+
+---
+
+## Repo Structure
+
+**One repo per client project.**
+
+Each client gets its own GitHub repository. No monorepo. Reasons:
+- Clean handover: give a client their repo without exposing other projects
+- Independent history: one project's bad commit doesn't affect another
+- GitHub Pages works per-repo (useful for client preview links)
+- Access control stays simple
+
+### Naming Convention
+
+```
+agency-[clientname]-[projecttype]
+
+Examples:
+  agency-eurletb-website
+  agency-clientname-landing
+  agency-clientname-portfolio
+```
+
+---
+
+## Initial Setup (Per Project)
+
+```bash
+# 1. Create the repo on GitHub (private by default)
+#    Go to github.com → New repository → name it → Private → Create
+
+# 2. Clone it locally
+git clone https://github.com/YOUR_USERNAME/agency-clientname-website.git
+cd agency-clientname-website
+
+# 3. Add your project files
+cp -r /path/to/project/* .
+
+# 4. Create .gitignore
+touch .gitignore
+
+# 5. First commit
+git add .
+git commit -m "init: project scaffold and initial files"
+git push origin main
+```
+
+### Recommended `.gitignore`
+```
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.cursor/
+*.code-workspace
+
+# Logs & temp
+*.log
+*.tmp
+
+# Large assets (add manually with git-lfs or keep out of repo)
+images/raw/
+*.psd
+*.ai
+```
+
+---
+
+## Branch Strategy
+
+Simple two-branch model — no overhead, safe enough for solo work.
+
+```
+main      ← stable, client-deliverable state only
+dev       ← active work, agent outputs, experiments
+```
+
+### Daily workflow:
+```bash
+# Always work on dev
+git checkout dev
+
+# When a full pipeline stage is done and verified, merge to main
+git checkout main
+git merge dev
+git push origin main
+```
+
+---
+
+## Commit at Every Pipeline Stage
+
+This is the core habit. One commit per pipeline stage, every time.
+
+| Stage | Tool | Commit Message Format | Example |
+|---|---|---|---|
+| 1 — Plan | Claude Sonnet | `plan: [description]` | `plan: services page architecture and prompt set` |
+| 2 — Generate | Gemini Flash / DeepSeek V3 | `generate: [description]` | `generate: services page HTML/CSS from DeepSeek V3` |
+| 3 — Integrate | Claude Sonnet / Cursor | `integrate: [description]` | `integrate: services sections merged into services.html` |
+| 4 — QA | Claude Sonnet / Cursor | `qa: [description]` | `qa: responsiveness fixed at 768px and 375px` |
+| 5 — Review | Claude Sonnet | `review: [description]` | `review: UX pass, hero padding and CTA copy adjusted` |
+
+### Why this matters:
+If Stage 3 breaks the layout, you can instantly return to Stage 2:
+```bash
+git log --oneline        # find the Stage 2 commit hash
+git checkout abc1234     # go back to that exact state
+```
+
+---
+
+## Recovery Procedures
+
+### Undo last commit (keep changes):
+```bash
+git reset --soft HEAD~1
+```
+
+### Undo last commit (discard changes):
+```bash
+git reset --hard HEAD~1
+```
+
+### Revert a specific file to last commit:
+```bash
+git checkout HEAD -- index.html
+```
+
+### An agent completely broke something — start the stage over:
+```bash
+# Discard all uncommitted changes
+git checkout .
+
+# Or go back to a specific commit
+git reset --hard [commit-hash]
+```
+
+---
+
+## GitHub Pages — Client Preview Links
+
+For static sites (HTML/CSS/JS, no server), GitHub Pages gives you a free public preview URL to share with clients during review.
+
+```bash
+# Enable in: GitHub repo → Settings → Pages → Source: main branch / root
+# URL will be: https://YOUR_USERNAME.github.io/agency-clientname-website/
+```
+
+Use this at Stage 5 (Review) — share the link with the client instead of sending files.
+
+---
+
+## Handover to Client
+
+When the project is complete:
+
+1. Make sure `main` is clean and fully up to date
+2. Tag the final release:
+   ```bash
+   git tag v1.0 -m "Final delivery — [client name] — [date]"
+   git push origin v1.0
+   ```
+3. Transfer repo ownership (if client wants it) via GitHub → Settings → Transfer
+4. Or: add client as collaborator with read-only access
+
+---
+
+## Quick Reference
+
+```bash
+# Start of every session
+git status                        # see what's changed
+git pull origin dev               # sync if working across machines
+
+# Stage and commit
+git add .
+git commit -m "stage: description"
+git push origin dev
+
+# Merge to main when stage is verified
+git checkout main
+git merge dev
+git push origin main
+
+# Check history
+git log --oneline
+```
