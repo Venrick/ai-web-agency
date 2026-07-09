@@ -1,0 +1,112 @@
+# Model Tier System
+**AI Web Dev Agency — Internal Reference**
+Last updated: July 2026
+
+---
+
+## Overview
+
+Three-tier system for routing tasks to the right model based on complexity, output size, and judgment required. The goal is to minimize cost and latency without sacrificing quality on tasks that matter.
+
+---
+
+## Tier 1 — Strategic
+
+**Model:** Claude Sonnet
+**When to use:** Tasks that require project-wide judgment, client-facing output quality, or contextual reasoning that can't be fully specified in a prompt.
+
+| Task | Notes |
+|---|---|
+| Project planning & page architecture | Full site structure, content hierarchy |
+| UX and layout review | Final pass before client delivery |
+| Complex JS logic | GSAP sequences, scroll behavior, state management |
+| Client-facing copy | Hero text, service descriptions, CTAs |
+| Prompt writing for Tier 2/3 | Translate a brief into a structured generation prompt |
+| Proposal and handover documents | Client-facing, must be polished |
+| Any task that failed twice at Tier 2 | Escalate, don't keep re-prompting |
+
+---
+
+## Tier 2 — Generative
+
+**Model:** Gemini Flash or DeepSeek V3
+**When to use:** Tasks that are well-defined and output-heavy. The brief is already clear; the model just needs to produce markup, styles, or structured content at volume.
+
+| Task | Notes |
+|---|---|
+| HTML/CSS component generation | From a Tier 1 prompt, not a vague brief |
+| Tailwind class application | Layout, spacing, color, responsive variants |
+| Page integration from components | Assembling sections into a full page |
+| Image placeholder & metadata scaffolding | `alt`, `width`, `height`, `loading` attrs |
+| Translating a layout brief into markup | When the design spec is fully written |
+| First-pass responsiveness | Breakpoint classes, stacking order |
+
+---
+
+## Tier 3 — Mechanical
+
+**Model:** DeepSeek R1 or local Ollama model (e.g. Qwen, Mistral)
+**When to use:** Repetitive, low-stakes, fast-turnaround tasks. Fully specifiable in under 5 lines. No ambiguity.
+
+| Task | Notes |
+|---|---|
+| Responsiveness bug fixes | Single breakpoint, isolated component |
+| Simple bug fixes | Missing class, broken selector, typo |
+| File renaming & cleanup | Folder structure, asset naming conventions |
+| Alt text generation | From image filename or surrounding context |
+| Basic SEO meta tags | `title`, `description`, `og:*` per page |
+| Repetitive copy variants | Button labels, nav items, form placeholders |
+
+---
+
+## Escalation & Downgrade Rules
+
+### Escalate one tier when:
+- The model fails or produces unusable output on the **second attempt**
+- The task requires referencing other pages or the full project context
+- The output will be seen directly by the client
+
+> Do not keep re-prompting at the same tier. Two failures = escalate.
+
+### Downgrade one tier when:
+- The task can be fully specified in **under 5 lines** with no ambiguity
+- The output is purely structural (no copy, no logic, no judgment)
+- The same task has been done before with a known working prompt
+
+---
+
+## Cost & Speed Reference
+
+| Tier | Model | Relative Cost | Best For |
+|---|---|---|---|
+| 1 | Claude Sonnet | $$$ | Quality, judgment, client output |
+| 2 | Gemini Flash | $ | Volume generation, fast turnaround |
+| 2 | DeepSeek V3 | $ | Good at HTML/CSS, cheaper than Flash |
+| 3 | DeepSeek R1 | $$ | Reasoning-light mechanical tasks |
+| 3 | Ollama (local) | Free | Offline, private, zero API cost |
+
+---
+
+## Decision Flowchart
+
+```
+Is the task client-facing or does it require full project context?
+  → YES → Tier 1 (Claude Sonnet)
+
+Is the task fully defined with no ambiguity?
+  → NO  → Write a Tier 1 prompt first, then re-route
+  → YES → Continue
+
+Can it be specified in under 5 lines with a known output format?
+  → YES → Tier 3 (DeepSeek R1 / Ollama)
+  → NO  → Tier 2 (Gemini Flash / DeepSeek V3)
+```
+
+---
+
+## Notes
+
+- DeepSeek V3 handles low-to-mid HTML/CSS generation well and is significantly cheaper than Claude for volume work. Prefer it over Gemini Flash for markup-heavy tasks.
+- Ollama local models are best for tasks where privacy matters (client data in context) or for offline work.
+- This system applies per-task, not per-project. A single page build might hit all three tiers.
+- Revisit model assignments every few months — the landscape moves fast.
