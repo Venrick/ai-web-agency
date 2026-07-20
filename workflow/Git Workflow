@@ -100,11 +100,11 @@ This is the core habit. One commit per pipeline stage, every time.
 
 | Stage | Tool | Commit Message Format | Example |
 |---|---|---|---|
-| 1 — Plan | Claude Sonnet | `plan: [description]` | `plan: services page architecture and prompt set` |
-| 2 — Generate | Gemini Flash / DeepSeek V3 | `generate: [description]` | `generate: services page HTML/CSS from DeepSeek V3` |
-| 3 — Integrate | Claude Sonnet / Cursor | `integrate: [description]` | `integrate: services sections merged into services.html` |
-| 4 — QA | Claude Sonnet / Cursor | `qa: [description]` | `qa: responsiveness fixed at 768px and 375px` |
-| 5 — Review | Claude Sonnet | `review: [description]` | `review: UX pass, hero padding and CTA copy adjusted` |
+| 1 — Plan | Claude Sonnet 5 | `plan: [description]` | `plan: services page architecture and prompt set` |
+| 2 — Generate | Gemini 3.5 Flash / DeepSeek V3.2 | `generate: [description]` | `generate: services page HTML/CSS from DeepSeek V3` |
+| 3 — Integrate | Antigravity (Gemini 3 Pro) | `integrate: [description]` | `integrate: services sections merged into services.html` |
+| 4 — QA | Antigravity (Gemini 3 Pro) | `qa: [description]` | `qa: responsiveness fixed at 768px and 375px` |
+| 5 — Review | Claude Sonnet 5 | `review: [description]` | `review: UX pass, hero padding and CTA copy adjusted` |
 
 ### Why this matters:
 If Stage 3 breaks the layout, you can instantly return to Stage 2:
